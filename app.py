@@ -5,7 +5,7 @@ from dotenv import find_dotenv, load_dotenv
 
 import openai
 
-_ = load_dotenv(find_dotenv())  # read local .env file
+_ = load_dotenv(find_dotenv())
 
 parser = argparse.ArgumentParser()
 parser.add_argument("fname", type=str)
@@ -17,12 +17,12 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def get_completion(
     prompt, model="gpt-3.5-turbo"
-):  # Andrew mentioned that the prompt/ completion paradigm is preferable for this class
+):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        temperature=0,  # this is the degree of randomness of the model's output
+        temperature=0,
     )
     return response.choices[0].message["content"]
 
@@ -41,7 +41,6 @@ Summary: ```{subtitles}```
 
 # RESPONSE
 response = get_completion(prompt)
-# save response to file in data/summaries
 fpath = os.path.join(os.getcwd(), "data", "summaries", f"{fname}.txt")
 with open(fpath, "w") as file:
     file.write(response)
